@@ -25,8 +25,8 @@ pipeline {
                     sh "echo Deploy"
                 }
                 // Use the SERVER_IP variable defined in environment block
-                sh "ssh -o StrictHostKeyChecking=no webserver@${SERVER_IP} 'echo deploy'"
-                //sh "ssh -o StrictHostKeyChecking=no webserver@${SERVER_IP} 'bash ~/app/deploy.sh ${env.BUILD_NUMBER}'"
+                //sh "ssh -o StrictHostKeyChecking=no webserver@${SERVER_IP} 'echo deploy'"
+                sh "ssh -o StrictHostKeyChecking=no webserver@${SERVER_IP} 'bash ~/app/deploy.sh ${env.BUILD_NUMBER}'"
                 //sh "ssh -o StrictHostKeyChecking=no user@${SERVER_IP} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
             }
         }
