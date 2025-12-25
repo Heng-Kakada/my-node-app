@@ -19,7 +19,16 @@ pipeline {
                     sh "echo repo ip ${REPO_NAME}"
                     sh "Login"
                     // Using the credentials to login
-                    sh "echo ${DOCKER_AUTH_PSW} | docker login -u ${DOCKER_AUTH_USR} --password-stdin"
+                    docker.withRegistry('', 'docker-hub-creds') {
+                        // 1. Build the image
+                        def customImage = docker.build("${env.DOCKER_REPO}:${env.BUILD_NUMBER}")
+                        
+                        // 2. Push with the specific build tag
+                        customImage.push()
+                        
+                        // 3. Push as 'latest' for convenience
+                        customImage.push('latest')
+                    }
                     // sh "docker build -t ${REPO_NAME}:${env.BUILD_NUMBER} ."
                     // sh "docker push ${REPO_NAME}:${env.BUILD_NUMBER}"
                 }
