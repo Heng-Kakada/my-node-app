@@ -12,8 +12,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({
     status: "success",
-    message: "Hello from the Production Pipeline! Hee",
-    version: "1.0.0",
+    message: "Hello World",
+    version: "1.1.0",
     node_version: process.version,
   });
 });
