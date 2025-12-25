@@ -17,9 +17,9 @@ pipeline {
                 script {
                     sh "echo server ip ${SERVER_IP}"
                     sh "echo repo ip ${REPO_NAME}"
-                    sh "echo login ${DOCKER_AUTH}"
+                    sh "Login"
                     // Using the credentials to login
-                    // sh "echo ${DOCKER_AUTH_PSW} | docker login -u ${DOCKER_AUTH_USR} --password-stdin"
+                    sh "echo ${DOCKER_AUTH_PSW} | docker login -u ${DOCKER_AUTH_USR} --password-stdin"
                     // sh "docker build -t ${REPO_NAME}:${env.BUILD_NUMBER} ."
                     // sh "docker push ${REPO_NAME}:${env.BUILD_NUMBER}"
                 }
