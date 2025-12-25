@@ -12,8 +12,8 @@ app.use((req, res, next) => {
 app.get("/", (req, res) => {
   res.json({
     status: "success",
-    message: "Hello World",
-    version: "1.1.0",
+    message: "Hello World V2",
+    version: "2.0.0",
     node_version: process.version,
   });
 });
