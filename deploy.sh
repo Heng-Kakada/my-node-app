@@ -5,7 +5,7 @@ set -e
 
 # --- CONFIGURATION ---
 APP_NAME="node-app"
-IMAGE_NAME="your-dockerhub-username/node-app"
+IMAGE_NAME="hengkakada/node-app"
 IMAGE_TAG=$1  # Passed from Jenkins ${env.BUILD_NUMBER}
 NGINX_CONF="/etc/nginx/conf.d/app.conf"
 

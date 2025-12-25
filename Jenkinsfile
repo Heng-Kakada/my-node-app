@@ -15,18 +15,24 @@ pipeline {
         stage('Build & Login') {
             steps {
                 script {
+                    sh "echo server ip ${SERVER_IP}"
+                    sh "echo repo ip ${REPO_NAME}"
+                    sh "echo login ${DOCKER_AUTH}"
                     // Using the credentials to login
-                    sh "echo ${DOCKER_AUTH_PSW} | docker login -u ${DOCKER_AUTH_USR} --password-stdin"
-                    sh "docker build -t ${REPO_NAME}:${env.BUILD_NUMBER} ."
-                    sh "docker push ${REPO_NAME}:${env.BUILD_NUMBER}"
+                    // sh "echo ${DOCKER_AUTH_PSW} | docker login -u ${DOCKER_AUTH_USR} --password-stdin"
+                    // sh "docker build -t ${REPO_NAME}:${env.BUILD_NUMBER} ."
+                    // sh "docker push ${REPO_NAME}:${env.BUILD_NUMBER}"
                 }
             }
         }
 
         stage('Remote Deploy') {
             steps {
+                script {
+                    sh "echo Deploy"
+                }
                 // Use the SERVER_IP variable defined in environment block
-                sh "ssh -o StrictHostKeyChecking=no user@${SERVER_IP} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
+                //sh "ssh -o StrictHostKeyChecking=no user@${SERVER_IP} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
             }
         }
     }
