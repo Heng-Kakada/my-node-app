@@ -3,10 +3,10 @@ pipeline {
 
     environment {
         // Change these to your actual Docker Hub details
-        DOCKER_HUB_USER = 'yourusername'
+        DOCKER_HUB_USER = 'hengkakada'
         APP_NAME        = 'my-node-app'
         IMAGE_NAME      = "${DOCKER_HUB_USER}/${APP_NAME}"
-        WEB_SERVER      = 'user@192.168.100.10'
+        WEB_SERVER      = 'user@192.168.100.21'
         DOCKER_CREDS    = 'docker-hub-credentials-id' 
     }
 
@@ -33,9 +33,10 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
+                echo "Deploy Test Work"
                 // Trigger the deploy.sh script on the remote web server
                 // We pass the build number so the server knows which version to pull
-                sh "ssh -o StrictHostKeyChecking=no ${WEB_SERVER} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
+                //sh "ssh -o StrictHostKeyChecking=no ${WEB_SERVER} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
             }
         }
     }
