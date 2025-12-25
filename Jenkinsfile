@@ -33,7 +33,9 @@ pipeline {
 
         stage('Deploy to Production') {
             steps {
-                echo "Deploy Test Work"
+                script{
+                    echo "Deploy Test Work"
+                }
                 // Trigger the deploy.sh script on the remote web server
                 // We pass the build number so the server knows which version to pull
                 //sh "ssh -o StrictHostKeyChecking=no ${WEB_SERVER} 'bash ~/deploy.sh ${env.BUILD_NUMBER}'"
