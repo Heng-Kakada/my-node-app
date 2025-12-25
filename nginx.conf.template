@@ -1,0 +1,37 @@
+# This block defines where Nginx sends the traffic
+upstream node_app_backend {
+    # The deploy.sh script will toggle this between 127.0.0.1:3001 and 127.0.0.1:3002
+    server 127.0.0.1:3001;
+}
+
+server {
+    listen 80;
+    server_name _; # Change this to your domain name if you have one
+
+    # Optimization for production
+    client_max_body_size 20M;
+    keepalive_timeout 65;
+
+    location / {
+        proxy_pass http://node_app_backend;
+        proxy_http_version 1.1;
+        
+        # Essential headers to pass real client info to Node.js
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Timeouts to prevent hanging connections
+        proxy_connect_timeout 90;
+        proxy_send_timeout 90;
+        proxy_read_timeout 90;
+    }
+
+    # Optional: Block access to hidden files (like .env or .git)
+    location ~ /\. {
+        deny all;
+    }
+}
